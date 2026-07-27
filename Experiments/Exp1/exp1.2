@@ -1,0 +1,12 @@
+// Define parameters
+N = 21;
+n0 = 11;
+n = 1:N;
+x_n = zeros(1, N);
+x_n(n0) = 1;
+clf; 
+plot2d(n, x_n);
+xlabel('n (Discrete Time Index)');
+ylabel('Amplitude');
+title('Discrete-Time Unit Impulse Signal');
+xtitle('Discrete-Time Unit Impulse Signal','n (Discrete Time Index)','Amplitude');
