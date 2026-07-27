@@ -1,9 +1,12 @@
+clear;
+ clc;
 // Continuous time
 t = -2:0.001:2;
-u = (t >= 0);
-r = t .* (t >= 0);
-imp = (t == 0);
-clf;
+u = double(t >= 0);
+r = t .* double(t >= 0);
+imp = double(t == 0); 
+clf(0);
+scf(0);
 subplot(3,1,1);
 plot(t, u);
 xtitle("Unit Step (Continuous)");
@@ -15,10 +18,11 @@ plot(t, imp);
 xtitle("Impulse Approximation");
 // Discrete time
 n = -5:5;
-ud = (n >= 0);
-rd = n .* (n >= 0);
-impd = (n == 0);
-figure;
+ud = double(n >= 0);
+rd = double(n .* (n >= 0));
+impd = double(n == 0);
+scf(1);
+clf(1);
 subplot(3,1,1);
 plot2d3(n, ud);
 xtitle("Unit Step (Discrete)");
