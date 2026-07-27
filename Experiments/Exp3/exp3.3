@@ -1,0 +1,17 @@
+// Test Case: Autocorrelation of a Rectangular Pulse Sequence
+clc;
+N = 20;
+x_n = [ones(1,5), zeros(1,N-5)];
+R_xx = correl(x_n, x_n);
+lags = -N+1:N-1;
+clf;
+subplot(2,1,1);
+bar(0:N-1, x_n, 'b');
+xlabel('n (Discrete Time Index)');
+ylabel('Amplitude');
+title('Input Sequence: Rectangular Pulse Sequence');
+subplot(2,1,2);
+bar(lags, R_xx, 'r');
+xlabel('Lag');
+ylabel('Autocorrelation');
+title('Autocorrelation of the Rectangular Pulse Sequence');
