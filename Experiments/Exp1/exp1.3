@@ -2,12 +2,13 @@ clear; clc;
 
 // Continuous time
 t = -2:0.001:2;
-u = double(t >= 0);
-r = t .* double(t >= 0);
-imp = double(t == 0); // ideal impulse approx is not possible in continuous
+u = bool2s(t >= 0);
+r = t .* bool2s(t >= 0);
+imp = bool2s(t == 0); // Ideal impulse approximation
 
-clf(0);
-scf(0);
+scf(0); // Select Figure 0
+clf(0); // Clear Figure 0
+
 subplot(3,1,1);
 plot(t, u);
 xtitle("Unit Step (Continuous)");
@@ -23,19 +24,19 @@ xtitle("Impulse Approximation");
 
 // Discrete time
 n = -5:5;
-ud = double(n >= 0);
-rd = double(n .* (n >= 0));  // Discrete Ramp Function
-impd = double(n == 0);
+ud = bool2s(n >= 0);
+rd = n .* bool2s(n >= 0); // Fixed: bool2s converts %T/%F to 1/0
+impd = bool2s(n == 0);
 
-scf(1); // Selects Figure 1 window for discrete plots
-clf(1);
+scf(1); // Select Figure 1 for discrete plots
+clf(1); // Clear Figure 1
 
 subplot(3,1,1);
-plot2d3(n, ud); // discrete "stem-like" plot
+plot2d3(n, ud); // Discrete stem-like plot
 xtitle("Unit Step (Discrete)");
 
 subplot(3,1,2);
-plot2d3(n, rd);
+plot2d3(n, rd); // Discrete Ramp Function
 xtitle("Ramp (Discrete)");
 
 subplot(3,1,3);
