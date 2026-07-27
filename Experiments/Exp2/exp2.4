@@ -1,0 +1,12 @@
+clc;
+t = -1:0.001:1;
+x = exp(-t.^2).*sin(6*%pi*t);
+t0 = 0.3;
+x_shift = interp1(t, x, t - t0, 'linear');
+x_rev = interp1(t, x, -t, 'linear');
+clf;
+plot(t, x, 'k');
+plot(t, x_shift, 'b--');
+plot(t, x_rev, 'r:');
+legend("x(t)","x(t-0.3)","x(-t)");
+xtitle("Time Shift and Reversal");
