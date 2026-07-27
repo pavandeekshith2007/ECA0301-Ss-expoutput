@@ -1,0 +1,19 @@
+clc;
+t = -1:0.001:1;
+x = sin(2*%pi*5*t).*exp(-t.^2);
+// Amplitude scaling
+x_amp = 2*x;
+// Time scaling
+x_time_comp = interp1(t, x, 2*t, 'linear');
+x_time_exp = interp1(t, x, 0.5*t, 'linear');
+clf;
+subplot(3,1,1);
+plot(t, x); xtitle("Original");
+subplot(3,1,2);
+plot(t, x_amp); xtitle("Amplitude Scaled (2x)");
+subplot(3,1,3);
+
+plot(t, x_time_comp, 'b');
+plot(t, x_time_exp, 'r--');
+legend("x(2t)","x(0.5t)");
+xtitle("Time Scaling");
