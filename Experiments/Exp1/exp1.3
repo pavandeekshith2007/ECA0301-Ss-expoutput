@@ -1,44 +1,14 @@
-clear; clc;
-
-// Continuous time
-t = -2:0.001:2;
-u = bool2s(t >= 0);
-r = t .* bool2s(t >= 0);
-imp = bool2s(t == 0); // Ideal impulse approximation
-
-scf(0); // Select Figure 0
-clf(0); // Clear Figure 0
-
-subplot(3,1,1);
-plot(t, u);
-xtitle("Unit Step (Continuous)");
-
-subplot(3,1,2);
-plot(t, r);
-xtitle("Ramp (Continuous)");
-
-subplot(3,1,3);
-plot(t, imp);
-xtitle("Impulse Approximation");
-
-
-// Discrete time
-n = -5:5;
-ud = bool2s(n >= 0);
-rd = n .* bool2s(n >= 0); // Fixed: bool2s converts %T/%F to 1/0
-impd = bool2s(n == 0);
-
-scf(1); // Select Figure 1 for discrete plots
-clf(1); // Clear Figure 1
-
-subplot(3,1,1);
-plot2d3(n, ud); // Discrete stem-like plot
-xtitle("Unit Step (Discrete)");
-
-subplot(3,1,2);
-plot2d3(n, rd); // Discrete Ramp Function
-xtitle("Ramp (Discrete)");
-
-subplot(3,1,3);
-plot2d3(n, impd);
-xtitle("Unit Impulse (Discrete)");
+clear;
+clc;
+t = 0:0.001:2;
+T = 0.5;
+sawtooth_wave = 2 * (t/T - floor(t/T + 0.5));
+triangular_wave = 2 * abs(2 * (t/T - floor(t/T + 0.5))) - 1;
+scf(0);
+clf(0);
+subplot(2,1,1);
+plot(t, triangular_wave);
+xtitle("Symmetric Triangular Waveform", "Time (s)", "Amplitude");
+subplot(2,1,2);
+plot(t, sawtooth_wave);
+xtitle("Ramp-like Sawtooth Waveform", "Time (s)", "Amplitude");
