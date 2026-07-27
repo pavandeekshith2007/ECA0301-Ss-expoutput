@@ -1,0 +1,26 @@
+// Parameters for the periodic signal (Sinusoidal)
+clc;
+f_periodic = 1; // Frequency in Hz
+A_periodic = 1; // Amplitude
+t_periodic = 0:0.01:2; // Time vector for 0 to 2 seconds
+// Generate the periodic signal
+x_periodic = A_periodic * sin(2 * %pi * f_periodic * t_periodic);
+// Plot the periodic signal
+clf; // Clear the current figure
+subplot(2,1,1); // Subplot 1 for the periodic signal
+plot(t_periodic, x_periodic);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Periodic Signal: Sinusoidal Wave (1 Hz)');
+// Parameters for the aperiodic signal (Exponentially Decaying)
+a_aperiodic = 0.5; // Base of the exponential decay
+A_aperiodic = 2; // Amplitude
+t_aperiodic = 0:0.01:2; // Time vector for 0 to 2 seconds
+// Generate the aperiodic signal
+x_aperiodic = A_aperiodic * exp(-a_aperiodic * t_aperiodic);
+// Plot the aperiodic signal
+subplot(2,1,2); // Subplot 2 for the aperiodic signal
+plot(t_aperiodic, x_aperiodic);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Aperiodic Signal: Exponentially Decaying Signal');
