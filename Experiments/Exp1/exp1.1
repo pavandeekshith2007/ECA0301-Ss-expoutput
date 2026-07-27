@@ -1,0 +1,12 @@
+// Test Case: Sinusoidal Signal Generation
+f = 5;
+A = 2;
+phi = %pi/4;
+t = 0:0.001:1;
+x_t = A * sin(2 * %pi * f * t + phi);
+clf;
+plot(t, x_t);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Sinusoidal Signal: 5 Hz, Amplitude 2, Phase Shift π/4');
+xtitle('Continuous Time Sinusoidal Signal','Time (s)','Amplitude');
