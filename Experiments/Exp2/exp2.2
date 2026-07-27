@@ -1,0 +1,14 @@
+clc;
+t = -1:0.001:1;
+x = exp(-abs(t)).*sin(4*%pi*t) + 0.3;
+// Reverse signal
+x_rev = interp1(t, x, -t, 'linear');
+// Even and odd parts
+xe = 0.5 * (x + x_rev);
+xo = 0.5 * (x - x_rev);
+clf;
+plot(t, x, 'k');
+plot(t, xe, 'b--');
+plot(t, xo, 'r:');
+legend("x(t)", "Even Part", "Odd Part");
+xtitle("Even-Odd Decomposition", "t", "Amplitude");
