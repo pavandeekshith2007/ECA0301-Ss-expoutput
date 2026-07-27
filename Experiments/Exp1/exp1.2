@@ -1,10 +1,11 @@
-// Define parameters
+// Test Case: Discrete-Time Unit Impulse Signal Generation
+clc;
 N = 21;
 n0 = 11;
 n = 1:N;
 x_n = zeros(1, N);
 x_n(n0) = 1;
-clf; 
+clf;
 plot2d(n, x_n);
 xlabel('n (Discrete Time Index)');
 ylabel('Amplitude');
