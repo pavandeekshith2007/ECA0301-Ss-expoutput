@@ -1,0 +1,21 @@
+clear;
+clc;
+clf;
+N = 20;
+u_n = ones(1, N);
+b = [1];
+a = [1, -0.5];
+y_n = filter(b, a, u_n);
+n = 0:N-1; // Time index
+clf; // Clear the current figure
+subplot(2,1,1);
+bar(n, u_n, 'b');
+xlabel('n');
+ylabel('u[n]');
+title('Step Input Signal');
+// Plot system response to step input
+subplot(2,1,2);
+bar(n, y_n, 'r');
+xlabel('n');
+ylabel('y[n]');
+title('Step Response of the System');
