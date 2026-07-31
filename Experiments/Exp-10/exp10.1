@@ -1,0 +1,16 @@
+clear;
+clc;
+clf();
+z = poly(0, 'z');
+num = z^2 - 0.5*z;
+den = z^2 - 1.2*z + 0.35;
+H = syslin('d', num, den);
+zeros_H = roots(num);
+poles_H = roots(den);
+disp("Zeros of H(z):");
+disp(zeros_H);
+disp("Poles of H(z):");
+disp(poles_H);
+plzr(H);
+xgrid(1);
+xtitle("Pole-Zero Plot in Z-Domain", "Real Part", "Imaginary Part");
