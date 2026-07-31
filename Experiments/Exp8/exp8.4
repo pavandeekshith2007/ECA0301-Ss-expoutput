@@ -1,0 +1,32 @@
+clear;
+clc;
+clf();
+x = [0, 1.0, 0.5, 1.0, 0, -1.0, -0.5, -1.0];
+N = length(x);
+bit_rev_order = [1, 5, 3, 7, 2, 6, 4, 8];
+x_rev = x(bit_rev_order);
+X = complex(x_rev, zeros(1, N));
+m = log2(N);
+for stage = 1:m
+    L = 2^stage;
+    half_L = L / 2;
+    W_L = exp(-%i * 2 * %pi / L);
+    for k = 1:L:N
+        W = 1;
+        for j = 0:half_L-1
+            u = X(k + j);
+            v = X(k + j + half_L) * W;
+            
+            X(k + j)          = u + v;
+            X(k + j + half_L)  = u - v;
+            
+            W = W * W_L;
+        end
+    end
+end
+n = 0:N-1;
+plot(n, x, 'b-');
+xgrid(1);
+a = gca();
+a.data_bounds = [0, -1.2; 7, 1.2];
+xtitle("Magnitude Spectrum using DIT FFT", "n", "Amplitude");
