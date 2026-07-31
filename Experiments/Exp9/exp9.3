@@ -1,0 +1,21 @@
+clear;
+clc;
+clf;
+// Input sequence (length should be power of 2)
+x = [1, 2, 3, 4, 0, 0, 0, 0];
+N = length(x);
+X = fft(x, -1); // Scilab built-in FFT (DIT equivalent)
+// Display results
+disp("FFT (DIT) Result:");
+disp(X);
+subplot(2,1,1);
+plot(0:N-1, abs(X), 'r');
+xlabel('Frequency Index');
+ylabel('Magnitude');
+title('Magnitude Spectrum (DIT FFT)');
+subplot(2,1,2);
+phaseX = atan(imag(X), real(X)); // Phase in radians
+plot(0:N-1, phaseX, 'b');
+xlabel('Frequency Index');
+ylabel('Phase (radians)');
+title('Phase Spectrum (DIT FFT)');
