@@ -1,0 +1,23 @@
+clear;
+clc;
+clf();
+s = poly(0, 's');
+num = 1;
+den = s + 2;
+H = syslin('c', num, den);
+t = -1:0.01:5;
+a = 2;
+x_t = zeros(1, length(t));
+for i = 1:length(t)
+    if t(i) >= 0 then
+        x_t(i) = exp(-a * t(i));
+    end
+end
+subplot(2, 1, 1);
+plot(t, x_t, 'b', 'LineWidth', 2);
+xgrid(1);
+xtitle("Continuous-Time Signal x(t) = exp(-2t) u(t)", "t (Time in s)", "x(t)");
+subplot(2, 1, 2);
+plzr(H);
+xgrid(1);
+xtitle("Pole-Zero Map in S-Domain (Laplace Domain)", "Real Part (\sigma)", "Imaginary Part (j\omega)");
