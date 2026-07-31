@@ -1,0 +1,28 @@
+clear;
+clc;
+clf;
+t_min = -1;
+t_max = 5;
+dt = 0.01;
+t = t_min:dt:t_max;
+x_impulse = zeros(1, length(t));
+x_impulse(t == 0) = 1;
+y_impulse = zeros(1, length(t));
+a = 2;
+b = 1;
+for i = 1:length(t)
+if t(i) >= 0
+y_impulse(i) = (b / a) * exp(-a * t(i));
+end
+end
+clf;
+subplot(2,1,1);
+plot(t, x_impulse, 'b');
+xlabel('t (Time)');
+ylabel('x(t)');
+title('Input Signal x(t) - Impulse Function');
+subplot(2,1,2);
+plot(t, y_impulse, 'r');
+xlabel('t (Time)');
+ylabel('y(t)');
+title('Impulse Response y(t) of the System');
