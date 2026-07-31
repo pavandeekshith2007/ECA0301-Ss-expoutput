@@ -1,0 +1,18 @@
+clear;
+clc;
+clf;
+t_cont = 0:1e-4:0.02;
+f0 = 100;
+x_cont = sin(2*%pi*f0*t_cont);
+fs1 = 1000;
+n1 = 0:1/fs1:0.02;
+x_s1 = sin(2*%pi*f0*n1);
+fs2 = 150;
+n2 = 0:1/fs2:0.02;
+x_s2 = sin(2*%pi*f0*n2);
+clf;
+plot(t_cont, x_cont, 'k');
+plot(n1, x_s1, 'bo');
+plot(n2, x_s2, 'r*');
+legend("Continuous","fs=1000","fs=150");
+xtitle("Sampling Theorem Verification");
