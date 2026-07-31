@@ -1,0 +1,21 @@
+clear;
+clc;
+clf;
+N = 20;
+n = 0:N-1;
+x_n = ones(1, N);
+y_n = zeros(1, N);
+for k = 2:N
+y_n(k) = 0.5 * y_n(k-1) + x_n(k);
+end
+clf;
+subplot(2,1,1);
+plot2d (n, x_n);
+xlabel('n (Discrete Time Index)');
+ylabel('Amplitude');
+title('Input Sequence: Unit Step Sequence');
+subplot(2,1,2);
+plot2d(n, y_n);
+xlabel('n (Discrete Time Index)');
+ylabel('Amplitude');
+title('Output Sequence: Response of the Discrete-Time System');
