@@ -1,0 +1,25 @@
+// Experiment 7.4: Fourier Transform of a Rectangular Waveform
+clear;
+clc;
+clf;
+T = 2;
+fs = 100;
+dt = 1/fs;
+t = -5:dt:5;
+x_t = zeros(1, length(t));
+x_t(abs(t) <= T/2) = 1;
+N = 1024;
+x_padded = [x_t, zeros(1, N - length(x_t))];
+X_f = fft(x_padded, -1) * dt;
+X_f = fftshift(X_f);
+f = (-N/2 : N/2 - 1) * (fs / N);
+subplot(2, 1, 1);
+plot(t, x_t, 'b');
+a1 = gca();
+a1.data_bounds = [-5, -0.2; 5, 1.2];
+xtitle("Rectangular Waveform x(t)", "Time (s)", "Amplitude");)
+subplot(2, 1, 2);
+plot(f, abs(X_f), 'r');
+a2 = gca();
+a2.data_bounds = [-10, 0; 10, max(abs(X_f)) * 1.1]; // Zoom into [-10, 10] Hz
+xtitle("Fourier Transform |X(f)| (Sinc Function)", "Frequency (Hz)", "Magnitude");
