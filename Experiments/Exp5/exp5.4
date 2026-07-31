@@ -1,0 +1,24 @@
+clear;
+clc;
+clf;
+N = 20;
+x_n = zeros(1, N);
+x_n(1) = 1;
+b = [1];
+a = [1, -0.5];
+h_n = filter(b, a, x_n);
+u_n = ones(1, N);
+y_n = filter(b, a, u_n);
+n = 0:N-1; 
+clf;
+subplot(2,1,1);
+bar(n, h_n, 'b');
+xlabel('n');
+ylabel('h[n]');
+title('Impulse Response of the System');
+// Plot system response to step input
+subplot(2,1,2);
+bar(n, y_n, 'r');
+xlabel('n');
+ylabel('y[n]');
+title('Response of the System to Step Input');
