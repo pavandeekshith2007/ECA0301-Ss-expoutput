@@ -1,0 +1,22 @@
+clear;
+clc;
+clf;
+n = 0:20;
+x_n = (n >= 0) - (n >= 10);
+y_n = zeros(1, length(n));
+b = [0.5, 0.3, 0.2];
+for i = 3:length(n)
+y_n(i) = b(1) * x_n(i) + b(2) * x_n(i-1) + b(3) * x_n(i-2);
+end
+clf;
+subplot(2,1,1);
+bar(n, x_n, 'b');
+xlabel('n (Discrete Time Index)');
+ylabel('x[n]');
+title('Input Signal x[n]');
+// Plot the output signal y[n]
+subplot(2,1,2);
+bar(n, y_n, 'r');
+xlabel('n (Discrete Time Index)');
+ylabel('y[n]');
+title('Output Signal y[n] of the System');
