@@ -1,0 +1,25 @@
+clear;
+clc;
+clf;
+// Time vector
+t = -1:0.001:1; // fs = 1000 Hz
+x = exp(-t.^2); // Gaussian pulse
+// FFT length (must be >= length(x))
+N = 2048; // choose bigger than length(x)
+Xf = fft([x zeros(1, N - length(x))]); // zero-padding to N
+// Frequency vector
+fs = 1000; // Hz
+f = (-N/2:N/2-1) * (fs/N);
+// Magnitude spectrum
+magX = abs(fftshift(Xf));
+// Phase spectrum
+phaseX = atan(imag(fftshift(Xf)), real(fftshift(Xf)));
+// Plot
+
+clf;
+subplot(2,1,1);
+plot(f, magX);
+xtitle("Magnitude Spectrum", "Frequency (Hz)", "Magnitude");
+subplot(2,1,2);
+plot(f, phaseX);
+xtitle("Phase Spectrum", "Frequency (Hz)", "Phase (rad)");
