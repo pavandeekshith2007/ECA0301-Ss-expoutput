@@ -1,0 +1,22 @@
+clc;
+clear;
+function y = sinc_interp(x, t, Ts)
+y = 0*t;
+for k = 1:length(x)
+y = y + x(k) * sinc((t - (k-1 - length(x)/2)*Ts) / Ts);
+end
+endfunction
+t = -0.02:1e-4:0.02;
+f0 = 300;
+x = sin(2*%pi*f0*t);
+
+fs = 2000; Ts = 1/fs;
+n = -40:40;
+ns = n*Ts;
+xs = sin(2*%pi*f0*ns);
+x_rec = sinc_interp(xs, t, Ts);
+clf;
+plot(t, x, 'k');
+plot(t, x_rec, 'r--');
+legend("Original","Reconstructed");
+xtitle("Sinc Reconstruction");
