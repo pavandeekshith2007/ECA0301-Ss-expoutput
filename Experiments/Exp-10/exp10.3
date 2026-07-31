@@ -1,0 +1,22 @@
+clear;
+clc;
+clf();
+x = [1, 2, 3, 4];
+N = length(x);
+n = 0:N-1;
+theta = 0:0.01:2*%pi;
+z = exp(%i * theta);
+Xz = zeros(1, length(theta));
+for k = 1:length(theta)
+    Xz(k) = sum(x .* (z(k) .^ (-n)));
+end
+mag_Xz = abs(Xz);
+phase_Xz = atan(imag(Xz), real(Xz));
+subplot(2, 1, 1);
+plot(theta, mag_Xz, 'b');
+xtitle("Magnitude of Z-transform", "Theta (radians)", "|X(z)|");
+xgrid(1);
+subplot(2, 1, 2);
+plot(theta, phase_Xz, 'r');
+xtitle("Phase of Z-transform", "Theta (radians)", "Angle(X(z))");
+xgrid(1);
