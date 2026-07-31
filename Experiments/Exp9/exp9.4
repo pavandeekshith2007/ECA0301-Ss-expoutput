@@ -1,0 +1,19 @@
+clear;
+clc;
+clf;
+x = [1, 2, 3, 4, 0, 0, 0, 0];
+N = length(x);
+X = fft(x, -1); // DIF output is same as FFT in result
+disp("FFT (DIF) Result:");
+disp(X);
+subplot(2,1,1);
+plot(0:N-1, abs(X), 'g');
+xlabel('Frequency Index');
+ylabel('Magnitude');
+title('Magnitude Spectrum (DIF FFT)');
+subplot(2,1,2);
+phaseX = atan(imag(X), real(X)); // Phase in radians
+plot(0:N-1, phaseX, 'm');
+xlabel('Frequency Index');
+ylabel('Phase (radians)');
+title('Phase Spectrum (DIF FFT)');
