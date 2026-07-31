@@ -1,0 +1,24 @@
+// Experiment 6.4: Aliasing Effect Demonstration
+clc;
+clear;
+t = 0:1e-4:0.05;
+x = sin(2*%pi*300*t) + 0.8*sin(2*%pi*700*t);
+fs = 800;        // Sampling frequency (Hz)
+Ts = 1/fs;       // Sampling period
+n = 0:Ts:0.05;   // Sampled time vector
+xs = sin(2*%pi*300*n) + 0.8*sin(2*%pi*700*n);
+N = 2048;                                  // FFT length
+xs_padded = [xs, zeros(1, N - length(xs))]; // Explicit zero-padding
+Xf = abs(fft(xs_padded, -1));              // Forward FFT
+f = (0:N-1)*(fs/N);                        // Frequency axis
+clf;
+subplot(2,1,1);
+plot(t, x, 'b');                 // Continuous signal
+plot(n, xs, 'ro');               // Sampled points
+legend(["Continuous Signal", "Sampled Signal"]);
+xtitle("Continuous vs Sampled Signal", "Time (s)", "Amplitude");
+subplot(2,1,2);
+plot(f, Xf, 'b');
+a = gca();
+a.data_bounds = [0, 0; fs/2, max(Xf)]; // Limit display up to Nyquist limit (fs/2)
+xtitle("Spectrum of Sampled Signal (Aliasing Effect)", "Frequency (Hz)", "Magnitude");
