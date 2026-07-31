@@ -1,0 +1,22 @@
+clear;
+clc;
+clf();
+x = [1, 0.5, 0.25, 0.125];
+N = 64;
+n = 0:length(x)-1;
+k = 0:N-1;
+omega = 2 * %pi * k / N;
+z = exp(%i * omega);
+Xz = zeros(1, N);
+for m = 1:N
+    Xz(m) = sum(x .* (z(m) .^ (-n)));
+end
+clf();
+subplot(2, 1, 1);
+plot(omega/(2*%pi), abs(Xz), 'b');
+xtitle("Magnitude Spectrum", "Normalized Frequency", "|X(z)|");
+xgrid(1);
+subplot(2, 1, 2);
+plot(omega/(2*%pi), atan(imag(Xz), real(Xz)), 'r');
+xtitle("Phase Spectrum", "Normalized Frequency", "Phase (rad)");
+xgrid(1);
