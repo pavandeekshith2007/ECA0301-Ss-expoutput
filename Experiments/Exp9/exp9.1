@@ -1,0 +1,38 @@
+clear;
+clc;
+clf();
+x_n = [1, 2, 3, 4];
+X_k = fft(x_n);
+N = length(x_n);
+k = 0:N-1;
+magnitude = abs(X_k);
+phase = zeros(1, N);
+for i = 1:N
+real_part = real(X_k(i));
+imag_part = imag(X_k(i));
+if real_part > 0 then
+phase(i) = atan(imag_part / real_part);
+elseif real_part < 0 then
+phase(i) = atan(imag_part / real_part) + %pi;
+else
+if imag_part > 0 then
+phase(i) = %pi/2;
+elseif imag_part < 0 then
+phase(i) = -%pi/2;
+else
+phase(i) = 0;
+end
+end
+end
+clf;
+subplot(2,1,1);
+bar(k, magnitude, 'b');
+xlabel('k');
+ylabel('|X(k)|');
+title('Magnitude of the DFT');
+// Plot phase
+subplot(2,1,2);
+bar(k, phase, 'r');
+xlabel('k');
+ylabel('Angle(X(k))');
+title('Phase of the DFT');
