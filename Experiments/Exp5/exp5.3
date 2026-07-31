@@ -1,0 +1,13 @@
+clear;
+clc;
+clf;
+h = [1 2 1];
+x1 = [1 2];
+x2 = [3 4];
+a = 2; b = -1;
+y1 = conv(x1, h);
+y2 = conv(x2, h);
+lhs = a*y1 + b*y2;
+rhs = conv(a*x1 + b*x2, h);
+disp("LHS: "); disp(lhs);
+disp("RHS: "); disp(rhs);
