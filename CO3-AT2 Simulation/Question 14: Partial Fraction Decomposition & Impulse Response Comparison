@@ -1,0 +1,29 @@
+// Question 14 Solution
+clc; clear; close();
+s = poly(0, 's');
+// Transfer function H(s) = (s + 3) / ((s + 1)*(s + 2)*(s + 4))
+num = s + 3;
+den = (s + 1)*(s + 2)*(s + 4);
+H = syslin('c', num, den);
+// Partial fraction decomposition using pfss()
+elts = pfss(H);
+// Analytical reconstruction from residues:
+// H(s) = 2/3 / (s+1) - 1/2 / (s+2) - 1/6 / (s+4)
+t = 0:0.01:5;
+h_analytical = (2/3)*exp(-t) - (1/2)*exp(-2*t) - (1/6)*exp(-4*t);
+// Simulated impulse response using csim()
+h_sim = csim('impulse', t, H);
+// Calculate RMS difference
+rms_diff = sqrt(mean((h_sim - h_analytical).^2));
+// Dominant time constant (smallest magnitude pole is at s = -1)
+tau_dominant = 1 / abs(-1);
+// Plotting comparison
+scf(14);
+plot(t, h_sim, 'b-', 'LineWidth', 2);
+plot(t, h_analytical, 'r--', 'LineWidth', 1.5);
+xtitle('Impulse Response Comparison', 'Time (s)', 'Amplitude');
+legend(['Simulated impulse response', 'Analytical h(t)']);
+xgrid(1);
+mprintf("\n--- Question 14 Analysis Results ---\n");
+mprintf("RMS Difference between Analytical and Simulated h(t): %e\n", rms_diff);
+mprintf("Dominant Time Constant: %.2f s\n", tau_dominant);
