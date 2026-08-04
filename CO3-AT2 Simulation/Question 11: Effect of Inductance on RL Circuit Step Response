@@ -1,0 +1,28 @@
+// Question 11 Solution
+clc; clear; close();
+s = poly(0, 's');
+R = 2;
+K = 5;
+L_list = [0.05, 0.10, 0.15, 0.20];
+colors = ['r-', 'g-', 'b-', 'm-'];
+t = 0:0.001:0.5;
+scf(11);
+mprintf("\n--- Question 11 Analysis Results ---\n");
+for i = 1:length(L_list)
+    L = L_list(i);
+    tau = L / R;
+    // G(s) = K / (L*s + R)
+    G = syslin('c', K, L*s + R);
+    y = csim('step', t, G);
+    // Measure rise time (10% to 90%)
+    y_ss = K / R; // 2.5
+    i10 = find(y >= 0.1 * y_ss, 1);
+    i90 = find(y >= 0.9 * y_ss, 1);
+    t_rise = t(i90) - t(i10);
+    
+    plot(t, y, colors(i), 'LineWidth', 2);
+    mprintf("L = %.2f H | Time Constant (tau) = %.3f s | Rise Time = %.4f s\n", L, tau, t_rise);
+end
+xtitle('Effect of Inductance L on RL Circuit Step Response', 'Time (s)', 'Output Voltage');
+legend(['L = 0.05 H', 'L = 0.10 H', 'L = 0.15 H', 'L = 0.20 H']);
+xgrid(1);
