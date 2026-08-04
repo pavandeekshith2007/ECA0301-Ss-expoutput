@@ -1,1 +1,36 @@
-
+]// Question 7 Solution
+clc; clear; close();
+s = poly(0, 's');
+num = 5;
+den = 10*s + 1;
+G = syslin('c', num, den);
+// Define time vector (0 to 60 seconds)
+t = 0:0.1:60;
+// 1. Step Response
+y_step = csim('step', t, G);
+// 2. Ramp Input Input x(t) = t
+x_ramp = t;
+y_ramp = csim(x_ramp, t, G);
+// Plotting both responses
+scf(7);
+subplot(2, 1, 1);
+plot(t, y_step, 'b-', 'LineWidth', 2);
+xtitle('CSTR Unit Step Response', 'Time (s)', 'Temperature Output');
+xgrid(1);
+subplot(2, 1, 2);
+plot(t, y_ramp, 'r-', 'LineWidth', 2);
+plot(t, x_ramp, 'k--', 'LineWidth', 1.5);
+xtitle('CSTR Ramp Response', 'Time (s)', 'Output');
+legend(['System Output y(t)', 'Ramp Input x(t)']);
+xgrid(1);
+// Performance Analysis for Step Response
+y_ss = 5.0; // Steady state value = G(0) = 5
+idx_98 = find(y_step >= 0.98 * y_ss, 1);
+t_98_sim = t(idx_98);
+// Analytical formula: y(t) = 5*(1 - exp(-t/10))
+// 0.98 * 5 = 5*(1 - exp(-t/10)) => t = -10 * ln(0.02) ≈ 39.12 s
+t_98_analytical = -10 * log(0.02);
+mprintf("\n--- Question 7 Analysis Results ---\n");
+mprintf("Steady-state Value: %.2f\n", y_ss);
+mprintf("Simulated time to reach 98%% of steady state: %.2f s\n", t_98_sim);
+mprintf("Analytical time to reach 98%% of steady state: %.2f s\n", t_98_analytical);
