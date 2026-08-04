@@ -1,0 +1,38 @@
+// Question 9 Solution
+clc; clear; close();
+s = poly(0, 's');
+num = 2*s;
+den = s^2 + 2*s + 25;
+H = syslin('c', num, den);
+w = logspace(-1, 2, 2000); // Frequency vector in rad/s
+[frq, rep] = repfreq(H, w);
+mag_lin = abs(rep);
+mag_dB = 20 * log10(mag_lin);
+phase_deg = atan(imag(rep), real(rep)) * (180 / %pi);
+// Locate center frequency (Peak of |H(jw)|)
+[peak_val, peak_idx] = max(mag_lin);
+w_center = w(peak_idx);
+peak_dB = mag_dB(peak_idx);
+// Identify -3 dB cutoff frequencies
+target_3dB = peak_dB - 3;
+idx_lower = find(mag_dB(1:peak_idx) >= target_3dB, 1);
+idx_upper = peak_idx + find(mag_dB(peak_idx:$ ) <= target_3dB, 1) - 1;
+w_low = w(idx_lower);
+w_high = w(idx_upper);
+bandwidth = w_high - w_low;
+// Plotting
+scf(9);
+subplot(2, 1, 1);
+plot(w, mag_dB, 'b-', 'LineWidth', 2);
+plot([w_center, w_center], [min(mag_dB), peak_dB], 'r--');
+xtitle('Magnitude Response (dB)', 'Frequency (rad/s)', 'Magnitude (dB)');
+xgrid(1);
+subplot(2, 1, 2);
+plot(w, phase_deg, 'g-', 'LineWidth', 2);
+xtitle('Phase Response', 'Frequency (rad/s)', 'Phase (degrees)');
+xgrid(1);
+mprintf("\n--- Question 9 Analysis Results ---\n");
+mprintf("Center Frequency (Peak): %.2f rad/s\n", w_center);
+mprintf("Lower -3 dB Frequency: %.2f rad/s\n", w_low);
+mprintf("Upper -3 dB Frequency: %.2f rad/s\n", w_high);
+mprintf("-3 dB Bandwidth: %.2f rad/s\n", bandwidth);
